@@ -4,10 +4,10 @@ import express, { json } from "express"
 import cors from 'cors'
 import morgan from 'morgan';
 import connectToDb from './db/db.js';
-connectToDb()
-import userRoutes from "./routes/user.routes.js"
 import cookieParser from 'cookie-parser';
-
+import userRoutes from "./routes/user.routes.js"
+import captainRoutes from "./routes/captain.routes.js"
+connectToDb()
 const app = express();
 
 
@@ -27,6 +27,7 @@ app.get('/', (req, res) => {
 
 // routes defined here
 app.use('/users', userRoutes)
+app.use('/captain', captainRoutes)
 
 
 export default app;
