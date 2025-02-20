@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 
 // routes defined here
 app.use('/users', userRoutes)
-app.use('/captain', captainRoutes)
+app.use('/captains', captainRoutes)
 
 
 export default app;
