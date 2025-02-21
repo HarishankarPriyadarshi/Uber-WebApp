@@ -7,6 +7,7 @@ import connectToDb from './db/db.js';
 import cookieParser from 'cookie-parser';
 import userRoutes from "./routes/user.routes.js"
 import captainRoutes from "./routes/captain.routes.js"
+import mapRoutes from './routes/maps.routes.js'
 connectToDb()
 const app = express();
 
@@ -28,6 +29,6 @@ app.get('/', (req, res) => {
 // routes defined here
 app.use('/users', userRoutes)
 app.use('/captains', captainRoutes)
-
+app.use('/maps', mapRoutes)
 
 export default app;
