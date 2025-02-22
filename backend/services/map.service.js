@@ -76,6 +76,6 @@ export const getAutoCompleteSuggestion = async (input) => {
 
 export const getCaptainsInTheRadius = async () => {
     const apiKey = process.env.GOOGLE_MAPS_API;
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`;
+    const url = `https://maps.gomaps.pro/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`;
 
 }
