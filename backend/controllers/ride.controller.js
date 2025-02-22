@@ -47,8 +47,9 @@ export const getFare = async (req, res) => {
 
     const { pickup, destination } = req.query;
     try {
-        const fare = getFareService(pickup, destination);
+        const fare = await getFareService(pickup, destination);
         return res.status(200).json(fare);
+
 
     } catch (error) {
         return req.status(500).json({ message: err.message })

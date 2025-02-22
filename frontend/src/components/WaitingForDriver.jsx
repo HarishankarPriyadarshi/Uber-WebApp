@@ -1,7 +1,14 @@
 import React from 'react'
 import car from '../assets/car.jpg'
+import bike from '../assets/bike.png'
+import auto from '../assets/auto.png'
 
 const WaitingForDriver = (props) => {
+    const vehicleImages = {
+        car: car,
+        auto: auto,
+        moto: bike
+    };
     return (
         <div>
             <h5 className='p-1 text-center w-[93%] absolute top-0' onClick={() => {
@@ -9,7 +16,7 @@ const WaitingForDriver = (props) => {
             }}><i className="text-3xl text-gray-200 ri-arrow-down-wide-line"></i></h5>
 
             <div className='flex items-center justify-between'>
-                <img className='h-12' src={car} alt="" />
+                <img className='h-12' src={vehicleImages[props.vehicleType] || car} alt="" />
                 <div className='text-right'>
                     <h2 className='text-lg font-medium capitalize'>captain first's name</h2>
                     <h4 className='text-xl font-semibold -mt-1 -mb-1'>vechile plate number</h4>
