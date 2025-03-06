@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useContext } from 'react'
 import uberLogo from '../assets/uberLogo.png'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
@@ -11,6 +11,9 @@ import VehiclePanel from '../components/VehiclePanel';
 import ConfirmRide from '../components/ConfirmRide';
 import LookingForDriver from '../components/LookingForDriver';
 import WaitingForDriver from '../components/WaitingForDriver';
+import { SocketContext } from '../context/SocketContext';
+import { userDataContext } from '../context/UserContext';
+import { Socket } from 'socket.io-client';
 
 const Home = () => {
     const [pickup, setPickup] = useState('')
@@ -32,6 +35,16 @@ const Home = () => {
     const [fare, setFare] = useState({})
     const [vehicleType, setVehicleType] = useState(null)
     const [ride, setRide] = useState(null)
+
+
+    const { socket } = useContext(SocketContext)
+    const { user } = useContext(userDataContext)
+
+    useEffect(() => {
+        // console.log("userid", user);
+
+        socket.emit('join', { userType: 'user', userId: user?._id })
+    }, [user])
 
     const navigate = useNavigate();
 
