@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import uberdriverLogo from '../assets/uberdriverLogo.png'
 import FinishRide from '../components/FinishRide'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 
@@ -9,6 +9,8 @@ const CaptainRiding = () => {
 
     const [finishRidePanel, setFinishRidePanel] = useState(false)
     const finishRidePanelRef = useRef(null)
+    const location = useLocation()
+    const rideData = location.state?.ride || null
 
     useGSAP(function () {
         if (finishRidePanel) {
@@ -45,7 +47,7 @@ const CaptainRiding = () => {
             </div>
             <div ref={finishRidePanelRef} className='fixed w-full z-[500] bottom-0 translate-y-full bg-white px-3 py-10 pt-12'>
                 <FinishRide
-                    // ride={rideData}
+                    ride={rideData}
                     setFinishRidePanel={setFinishRidePanel} />
             </div>
 

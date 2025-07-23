@@ -33,7 +33,7 @@ router.get('/start-ride',
     startRide
 )
 
-router.get('/end-ride',
+router.post('/end-ride',
     authCaptain,
     body('rideId').isMongoId().withMessage('Invalid ride id'),
     endRide

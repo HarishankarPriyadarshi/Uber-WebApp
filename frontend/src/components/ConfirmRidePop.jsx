@@ -1,21 +1,38 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const ConfirmRidePop = (props) => {
 
     const navigate = useNavigate();
     const [otp, setOtp] = useState('')
 
-    const submitHander = (e) => {
+    const submitHander = async (e) => {
         e.preventDefault()
 
-        setOtp(' ')
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/rides/start-ride`, {
+            params: {
+                rideId: props.ride._id,
+                otp: otp
+            },
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+
+        if (response.status === 200) {
+            props.setConfirmRidePopUpPanel(false)
+            props.setRidePopUpPanel(false)
+            navigate('/captain-riding', { state: { ride: props.ride } }) // passing data as state to the next page
+        }
+
+
     }
 
     return (
         <div>
             <h5 className='p-1 text-center w-[93%] absolute top-0' onClick={() => {
-                props.setRidePopupPanel(false)
+                props.setRidePopUpPanel(false)
             }}><i className="text-3xl text-gray-200 ri-arrow-down-wide-line"></i></h5>
             <h3 className='text-2xl font-semibold mb-5'>Confirm this ride to Start</h3>
             <div className='flex items-center justify-between p-3 border-2 border-yellow-400 rounded-lg mt-4'>
@@ -56,8 +73,8 @@ const ConfirmRidePop = (props) => {
 
                         <button className='w-full mt-5 text-lg flex justify-center bg-green-600 text-white font-semibold p-3 rounded-lg'>Confirm</button>
                         <button onClick={() => {
-                            props.setConfirmRidePopupPanel(false)
-                            props.setRidePopupPanel(false)
+                            props.setConfirmRidePopUpPanel(false)
+                            props.setRidePopUpPanel(false)
 
                         }} className='w-full mt-2 bg-red-600 text-lg text-white font-semibold p-3 rounded-lg'>Cancel</button>
 
