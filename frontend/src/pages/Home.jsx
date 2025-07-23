@@ -48,6 +48,20 @@ const Home = () => {
 
     const navigate = useNavigate();
 
+    socket.on('ride-confirmed', ride => {
+
+        console.log("ride confirmed", ride);
+        setVehicleFound(false)
+        setWaitingForDriver(true)
+        setRide(ride)
+    })
+
+    socket.on('ride-started', ride => {
+        console.log("ride")
+        setWaitingForDriver(false)
+        navigate('/riding', { state: { ride } }) // Updated navigate to include ride data
+    })
+
     const handlePickupChange = async (e) => {
         setPickup(e.target.value)
         try {
@@ -284,6 +298,8 @@ const Home = () => {
             <div ref={waitingForDriverRef} className='fixed w-full z-10 bottom-0 translate-y-full  bg-white px-3 py-10 pt-12'>
                 <WaitingForDriver
                     setWaitingForDriver={setWaitingForDriver}
+                    ride={ride}
+                    waitingForDriver={waitingForDriver}
                 />
             </div>
 

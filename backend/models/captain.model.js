@@ -58,10 +58,10 @@ const captainSchema = mongoose.Schema({
     },
     location: {
         ltd: {
-            type: String,
+            type: Number,
         },
         lng: {
-            type: String
+            type: Number,
         }
     }
 
