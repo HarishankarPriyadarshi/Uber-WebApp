@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom'
 import { SocketContext } from '../context/SocketContext'
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import userHomeBg from '../assets/userHomeBg.png'
 
 const Riding = () => {
 
@@ -23,6 +24,7 @@ const Riding = () => {
             </Link>
             <div className='h-1/2'>
                 {/* <LiveTracking /> */}
+                <img className='h-full w-full object-cover' src={userHomeBg} alt="" />
 
             </div>
             <div className='h-1/2 p-4'>

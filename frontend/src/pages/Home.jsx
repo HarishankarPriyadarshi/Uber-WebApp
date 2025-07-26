@@ -14,6 +14,8 @@ import WaitingForDriver from '../components/WaitingForDriver';
 import { SocketContext } from '../context/SocketContext';
 import { userDataContext } from '../context/UserContext';
 import { Socket } from 'socket.io-client';
+import { LiveTracking } from '../components/LiveTracking';
+import userHomeBg from '../assets/userHomeBg.png'
 
 const Home = () => {
     const [pickup, setPickup] = useState('')
@@ -209,7 +211,8 @@ const Home = () => {
             <img className='w-16 absolute left-5 top-5' src={uberLogo} alt="uberLogo" />
             <div className='h-screen w-screen'>
                 {/* image for temporary use  */}
-                <img className='h-full w-full object-cover' src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.theatlantic.com%2Ftechnology%2Farchive%2F2017%2F04%2Fubers-pr-nightmare-a-field-guide%2F523269%2F&psig=AOvVaw0jyURzi1Q_0wBKlzN1m1ha&ust=1740145723504000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCMDM4oqy0osDFQAAAAAdAAAAABAZ" alt="" />
+                <img className='h-full w-full object-cover' src={userHomeBg} alt="" />
+                {/* <LiveTracking /> */}
 
             </div>
             <div className=' flex flex-col justify-end h-screen absolute top-0 w-full'>
