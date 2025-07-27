@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import uberdriverLogo from '../assets/uberdriverLogo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { captainDataContext } from '../context/CaptainContext.jsx'
+import Swal from 'sweetalert2';
 import axios from 'axios';
 
 const CaptainSignup = () => {
@@ -37,23 +38,41 @@ const CaptainSignup = () => {
             }
         }
 
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/register`, captainData)
-        if (response.status === 201) {
-            const data = response.data;
-            setCaptain(data.captain)
-            localStorage.setItem('token', data.token)
-
-            navigate('/captain-home')
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/register`, captainData)
+            if (response.status === 201) {
+                const data = response.data;
+                setCaptain(data.captain)
+                localStorage.setItem('captain-token', data.token)
+                
+                // Show success message
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Your captain account has been created successfully',
+                    icon: 'success',
+                    confirmButtonColor: '#10b461',
+                    timer: 1500
+                })
+                
+                navigate('/captain-home')
+            }
+            setEmail('')
+            setFirstName('')
+            setLastName('')
+            setPassword('')
+            setVehicleColor('')
+            setVehiclePlate('')
+            setVehicleCapacity('')
+            setVehicleType('')
+        } catch (error) {
+            // Show error message
+            Swal.fire({
+                title: 'Error!',
+                text: error.response?.data?.message || 'Failed to create captain account. Please try again.',
+                icon: 'error',
+                confirmButtonColor: '#d33'
+            })
         }
-        setEmail('')
-        setFirstName('')
-        setLastName('')
-        setPassword('')
-        setVehicleColor('')
-        setVehiclePlate('')
-        setVehicleCapacity('')
-        setVehicleType('')
-
     }
     return (
         <div className='py-5 px-5 h-screen flex flex-col justify-between'>

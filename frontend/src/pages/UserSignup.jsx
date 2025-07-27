@@ -3,6 +3,7 @@ import uberLogo from '../assets/uberLogo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { userDataContext } from '../context/UserContext.jsx'
 import { useState } from 'react';
+import Swal from 'sweetalert2'
 import axios from "axios"
 
 const UserSignup = () => {
@@ -28,19 +29,38 @@ const UserSignup = () => {
             password
         }
 
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, newUser)
-        if (response.status === 201) {
-            const data = response.data;
-            setUser(data.user)
-            localStorage.setItem('token', data.token)
-            navigate('/home')
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, newUser)
+            if (response.status === 201) {
+                const data = response.data;
+                setUser(data.user)
+                localStorage.setItem('token', data.token)
+                
+                // Show success message
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Your account has been created successfully',
+                    icon: 'success',
+                    confirmButtonColor: '#10b461',
+                    timer: 1500
+                })
+                
+                navigate('/home')
+            }
+
+            setEmail('');
+            setFirstName('');
+            setLastName('');
+            setPassword('');
+        } catch (error) {
+            // Show error message
+            Swal.fire({
+                title: 'Error!',
+                text: error.response?.data?.message || 'Failed to create account. Please try again.',
+                icon: 'error',
+                confirmButtonColor: '#d33'
+            })
         }
-
-        setEmail('');
-        setFirstName('');
-        setLastName('');
-        setPassword('');
-
     }
     return (
         <div className='p-7 h-screen flex flex-col justify-between '>

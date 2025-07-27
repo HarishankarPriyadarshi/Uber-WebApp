@@ -3,6 +3,7 @@ import uberdriverLogo from '../assets/uberdriverLogo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { captainDataContext } from '../context/CaptainContext';
+import Swal from 'sweetalert2';
 import axios from 'axios';
 
 const CaptainLogin = () => {
@@ -20,15 +21,35 @@ const CaptainLogin = () => {
         }
         // console.log(captainData);
 
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/login`, captain)
-        if (response.status === 200) {
-            const data = response.data;
-            setCaptain(data.captain)
-            localStorage.setItem('token', data.token)
-            navigate('/captain-home')
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/login`, captain)
+            if (response.status === 200) {
+                const data = response.data;
+                setCaptain(data.captain)
+                localStorage.setItem('captain-token', data.token)
+                
+                // Show success message
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'You have successfully logged in as a captain',
+                    icon: 'success',
+                    confirmButtonColor: '#10b461',
+                    timer: 1500
+                })
+                
+                navigate('/captain-home')
+            }
+            setEmail('');
+            setPassword('')
+        } catch (error) {
+            // Show error message
+            Swal.fire({
+                title: 'Error!',
+                text: error.response?.data?.message || 'Failed to login. Please check your credentials.',
+                icon: 'error',
+                confirmButtonColor: '#d33'
+            })
         }
-        setEmail('');
-        setPassword('')
     }
     return (
         <div className='p-7 h-screen flex flex-col justify-between '>
