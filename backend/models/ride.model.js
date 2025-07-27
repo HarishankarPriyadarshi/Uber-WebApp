@@ -22,7 +22,11 @@ const rideSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
-
+    vehicleType: {
+        type: String,
+        enum: ['car', 'auto', 'moto','bike'],
+        required: true,
+    },
     status: {
         type: String,
         enum: ['pending', 'accepted', "ongoing", 'completed', 'cancelled'],

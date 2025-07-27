@@ -1,5 +1,7 @@
 import React from 'react'
 import car from '../assets/car.jpg'
+import bike from '../assets/bike.png'
+import auto from '../assets/auto.png'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { SocketContext } from '../context/SocketContext'
@@ -8,6 +10,17 @@ import { useNavigate } from 'react-router-dom'
 import userHomeBg from '../assets/userHomeBg.png'
 
 const Riding = () => {
+    const vehicleImages = {
+        car: car,
+        auto: auto,
+        moto: bike
+    };
+    
+    const vehicleModels = {
+        car: 'Maruti Suzuki Swift',
+        auto: 'Bajaj Auto Rickshaw',
+        moto: 'Hero Splendor Plus'
+    };
 
     const location = useLocation()
     const { ride } = location.state || {} // Retrieve ride data
@@ -29,12 +42,11 @@ const Riding = () => {
             </div>
             <div className='h-1/2 p-4'>
                 <div className='flex items-center justify-between'>
-                    <img className='h-12' src="https://img.freepik.com/free-vector/young-man-black-shirt_1308-173618.jpg?semt=ais_hybrid&w=740" alt="" />
+                    <img className='h-12' src={vehicleImages[ride?.vehicleType] || car} alt="" />
                     <div className='text-right'>
                         <h2 className='text-lg font-medium capitalize'>{ride?.captain.fullname.firstname}</h2>
                         <h4 className='text-xl font-semibold -mt-1 -mb-1'>{ride?.captain.vehicle.plate}</h4>
-                        <p className='text-sm text-gray-600'>Maruti Suzuki Alto</p>
-
+                        <p className='text-sm text-gray-600'>{vehicleModels[ride?.vehicleType] || 'Vehicle'}</p>
                     </div>
                 </div>
 

@@ -34,7 +34,7 @@ const FinishRide = (props) => {
                     <img className='h-12 rounded-full object-cover w-12' src="https://img.freepik.com/free-vector/young-man-black-shirt_1308-173618.jpg?semt=ais_hybrid&w=740" alt="" />
                     <h2 className='text-lg font-medium'>{props.ride?.user.fullname.firstname} {props.ride?.user.fullname.lastname}</h2>
                 </div>
-                <h5 className='text-lg font-semibold'>2.2 KM</h5>
+                <h5 className='text-lg font-semibold'>{props.ride?.distance ? `${(props.ride.distance / 1000).toFixed(1)} KM` : 'Loading...'}</h5>
             </div>
             <div className='flex gap-2 justify-between flex-col items-center'>
                 <div className='w-full mt-5'>

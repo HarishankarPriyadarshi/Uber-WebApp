@@ -9,6 +9,13 @@ const WaitingForDriver = (props) => {
         auto: auto,
         moto: bike
     };
+    
+    const vehicleModels = {
+        car: 'Maruti Suzuki Swift',
+        auto: 'Bajaj Auto Rickshaw',
+        moto: 'Hero Splendor Plus'
+    };
+    
     return (
         <div>
             <h5 className='p-1 text-center w-[93%] absolute top-0' onClick={() => {
@@ -16,11 +23,11 @@ const WaitingForDriver = (props) => {
             }}><i className="text-3xl text-gray-200 ri-arrow-down-wide-line"></i></h5>
 
             <div className='flex items-center justify-between'>
-                <img className='h-12' src="https://swyft.pl/wp-content/uploads/2023/05/how-many-people-can-a-uberx-take.jpg" alt="" />
+                <img className='h-12' src={vehicleImages[props.ride?.vehicleType] || car} alt="" />
                 <div className='text-right'>
                     <h2 className='text-lg font-medium capitalize'>{props.ride?.captain.fullname.firstname}</h2>
                     <h4 className='text-xl font-semibold -mt-1 -mb-1'>{props.ride?.captain.vehicle.plate}</h4>
-                    <p className='text-sm text-gray-600'>Maruti Suzuki Alto</p>
+                    <p className='text-sm text-gray-600'>{vehicleModels[props.ride?.vehicleType] || 'Vehicle'}</p>
                     <h1 className='text-lg font-semibold'>  {props.ride?.otp} </h1>
                 </div>
             </div>
